@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# 🛍️ Fake Store React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple, clean React application that fetches products from the [Fake Store API](https://fakestoreapi.com/) and displays them in a responsive grid with search, sort, category filter, and cart functionality.
 
-## Available Scripts
+This project is built to demonstrate a complete front-end workflow — from fetching data and building reusable components to managing global state with React Context and implementing responsive UI with Tailwind CSS.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Product Listing:** Fetches product data from Fake Store API and displays in a responsive grid.
+- **Search & Sorting:** Search by title or category; sort by price or name.
+- **Category Filter:** Quickly filter products by category.
+- **Pagination:** Client-side pagination (12 items per page) for smoother navigation.
+- **Product Details:** Dedicated detail page for each product.
+- **Cart Management:** Add/remove items and persist cart state in `localStorage`.
+- **Dark/Light Mode:** User-controlled theme toggle with persistent preference.
+- **Responsive UI:** Works across desktop, tablet, and mobile.
+- **Skeleton Loading:** Improves perceived performance while fetching data.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧠 Project Architecture & Design Decisions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. **Tech Stack**
 
-### `npm run build`
+- **React :** Chosen for its component-based architecture, reusability, and strong community support. It provides a clean way to build interactive UIs with minimal setup..
+- **Tailwind CSS:** For rapid and consistent styling using utility classes.
+- **React Router:** To handle navigation between pages (home, product details).
+- **Context API:** Simple global state management for cart without external libraries.
+- **LocalStorage:** Lightweight persistence for cart items and theme preference.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. **Directory Structure**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+src/
+│
+├── components/
+│ ├── Header.jsx # Top navigation bar and cart drawer
+│ ├── ProductCard.jsx # Reusable card for products
+│
+├── context/
+│ └── CartContext.jsx # Global cart state + localStorage sync
+│
+├── pages/
+│ ├── ProductList.jsx # Main product grid page with filters
+│ ├── ProductDetails.jsx# Individual product page
+│
+├── App.js # Routing setup
+├── index.js # Entry point
+└── index.css # Tailwind CSS base styles
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. **Data Flow**
 
-### `npm run eject`
+- Products are fetched once (on mount in `ProductList.jsx`) from Fake Store API.
+- Search, sort, category, and pagination are applied on the client using memoized selectors (`useMemo`) to optimize performance.
+- Cart operations are managed in a React Context (`CartContext`) so any component can read/update the cart.
+- Cart data and theme preference persist using browser `localStorage`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 4. **UI Philosophy**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Focused on clean, readable UI with minimal visual clutter.
+- Kept dependencies small — no heavy UI frameworks.
+- Followed accessible color contrast and keyboard navigability.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ⚙️ How to Run the Project
 
-## Learn More
+### Prerequisites
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Make sure you have **Node.js (≥ 18)** and **npm** or **yarn** installed.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1️⃣ Clone the repository
 
-### Code Splitting
+````bash
+git clone https://github.com/Krishnendu04/goshop.git
+cd goshop
+2️⃣ Install dependencies
+```bash
+npm install
+3️⃣ Run the development server
+```bash
+npm run dev
+Open your browser and visit http://localhost:5173
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4️⃣ Build for production
+```bash
+Copy code
+npm run build
+````
