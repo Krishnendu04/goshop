@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import ProductCard from "../components/ProductCard";
 
 const API = "https://fakestoreapi.com/products";
 
@@ -113,19 +114,7 @@ export default function ProductList() {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {pageItems.map((p) => (
-              <div
-                key={p.id}
-                className="border rounded-xl shadow-md p-4 flex flex-col items-center bg-white hover:shadow-lg transition-shadow duration-300"
-              >
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  className="w-32 h-32 object-contain mb-3"
-                />
-                <h2 className="text-center text-sm font-semibold text-gray-800">
-                  {p.title}
-                </h2>
-              </div>
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
 
