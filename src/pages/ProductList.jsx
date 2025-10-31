@@ -10,7 +10,6 @@ export default function ProductList() {
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState([]);
 
   const PER_PAGE = 12;
   useEffect(() => {
@@ -21,9 +20,6 @@ export default function ProductList() {
       .then((data) => {
         if (!mounted) return;
         setProducts(data);
-        //Extract unique categories from product data
-        const uniqueCats = [...new Set(data.map((p) => p.category))];
-        setCategories(uniqueCats);
       })
       .catch(console.error)
       .finally(() => mounted && setLoading(false));
@@ -40,9 +36,6 @@ export default function ProductList() {
           p.category.toLowerCase().includes(q)
       );
 
-    // Filter by Category
-    if (category) list = list.filter((p) => p.category === category);
-
     if (sort === "price-asc")
       list = list.slice().sort((a, b) => a.price - b.price);
     if (sort === "price-desc")
@@ -50,7 +43,7 @@ export default function ProductList() {
     if (sort === "alpha")
       list = list.slice().sort((a, b) => a.title.localeCompare(b.title));
     return list;
-  }, [products, query, sort, category]);
+  }, [products, query, sort]);
 
   const total = filtered.length;
   const totalPages = Math.ceil(total / PER_PAGE);
@@ -70,19 +63,6 @@ export default function ProductList() {
             placeholder="Search by title or category"
             className="px-3 py-2 border rounded w-72 bg-white dark:bg-gray-800"
           />
-          {/* Category Dropdown */}
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="px-3 py-2 border rounded bg-white dark:bg-gray-800"
-          >
-            <option value="">All Categories</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </option>
-            ))}
-          </select>
 
           <select
             value={sort}
