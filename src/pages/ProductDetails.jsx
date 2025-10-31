@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import { Link, useParams } from "react-router-dom";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     let mounted = true;
@@ -40,6 +42,10 @@ export default function ProductDetails() {
         </div>
         <div className="mt-4 flex items-center gap-3">
           <button
+            onClick={() => {
+              addToCart(product);
+              alert("Product Added");
+            }}
             className="px-4 py-2 bg-indigo-600 text-white rounded"
           >
             Add to Cart
