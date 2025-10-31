@@ -72,19 +72,20 @@ Make sure you have **Node.js (≥ 18)** and **npm** or **yarn** installed.
 
 ### 1️⃣ Clone the repository
 
-````bash
+```bash
 git clone https://github.com/Krishnendu04/goshop.git
 cd goshop
+
 2️⃣ Install dependencies
-```bash
 npm install
+
 3️⃣ Run the development server
-```bash
-npm run dev
-Open your browser and visit http://localhost:5173
+npm start
+Open your browser and visit http://localhost:3000
 
 4️⃣ Build for production
-```bash
-Copy code
 npm run build
-````
+
+5️⃣ Preview the production build
+npm run preview
+```
