@@ -1,4 +1,4 @@
-# 🛍️ Fake Store React App
+# 🛍️ GoShop React App
 
 A simple, clean React application that fetches products from the [Fake Store API](https://fakestoreapi.com/) and displays them in a responsive grid with search, sort, category filter, and cart functionality.
 
