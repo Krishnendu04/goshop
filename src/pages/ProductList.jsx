@@ -1,32 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
+import useFetch from "../hooks/useFetch";
 
 const API = "https://fakestoreapi.com/products";
 
 export default function ProductList() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: products, loading, error } = useFetch(API);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState("");
 
   const PER_PAGE = 12;
-  useEffect(() => {
-    let mounted = true;
-    setLoading(true);
-    fetch(API)
-      .then((r) => r.json())
-      .then((data) => {
-        if (!mounted) return;
-        setProducts(data);
-      })
-      .catch(console.error)
-      .finally(() => mounted && setLoading(false));
-    return () => (mounted = false);
-  }, []);
   // client-side search
   const filtered = useMemo(() => {
+    if (!products) return [];
     const q = query.trim().toLowerCase();
     let list = products;
     if (q)
@@ -52,6 +39,8 @@ export default function ProductList() {
   useEffect(() => {
     setPage(1);
   }, [query, sort]);
+
+  if (error) return <div>Error loading products: {error.message}</div>;
 
   return (
     <div>

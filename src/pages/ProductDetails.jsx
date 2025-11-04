@@ -1,25 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link, useParams } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
 
-  useEffect(() => {
-    let mounted = true;
-    setLoading(true);
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then((r) => r.json())
-      .then((data) => mounted && setProduct(data))
-      .catch(console.error)
-      .finally(() => mounted && setLoading(false));
-    return () => (mounted = false);
-  }, [id]);
+  const { data: product, loading, error } = useFetch(
+    `https://fakestoreapi.com/products/${id}`
+  );
 
   if (loading) return <div className="skeleton h-48 w-full"></div>;
+  if (error) return <div>Error loading product: {error.message}</div>;
   if (!product) return <div>Product not found</div>;
 
   return (
